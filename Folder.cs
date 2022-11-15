@@ -3,25 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Json;
-using System.Xml;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace RServerViewer
 {
-    internal class ModelRVT 
+    internal class Folder 
     {
+        public string Name { get; set; }
+        public long DriveFreeSpace { get; set; }
+        public long DriveSpace { get; set; }
+        public List<File> Files { get; set; }
+        public List<Folder> Folders { get; set; }
         public object LockContext { get; set; }
         public int LockState { get; set; }
         public object ModelLocksInProgress { get; set; }
-        public int ModelSize { get; set; }
-
-        [JsonPropertyName("Name")]
-        public string ModelName { get; set; }
-        public int ProductVersion { get; set; }
-        public int SupportSize { get; set; }
+        public List<ModelRVT> Models { get; set; }
     }
 }

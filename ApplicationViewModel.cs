@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace RServerViewer
 {
@@ -15,9 +16,9 @@ namespace RServerViewer
 
 
         private Server selectedServer;
-
-
-
+        private Folder selectedFolder;
+        private ModelRVT selectedModelRVT;
+        
         public ObservableCollection<Server> Servers { get; set; }
 
         public Server SelectedServer
@@ -29,9 +30,27 @@ namespace RServerViewer
                 OnPropertyChanged("SelectedServer");
             }
         }
+        public Folder SelectedFolder
+        {
+            get { return selectedFolder; }
+            set
+            {
+                selectedFolder = value;
+                OnPropertyChanged("SelectedFolder");
+            }
+        }
+        public ModelRVT SelectedModelRVT
+        {
+            get { return selectedModelRVT; }
+            set
+            {
+                selectedModelRVT = value;
+                OnPropertyChanged("SelectedModelRVT");
+            }
+        }
 
-        private List<Directory> dirList;
-        public List<Directory> DirList
+        private List<Folder> dirList;
+        public List<Folder> DirList
         {
             get { return dirList; }
             set { dirList = value; OnPropertyChanged("DirList"); }
@@ -42,16 +61,15 @@ namespace RServerViewer
         private RelayCommand connectCommand;
         public RelayCommand ConnectCommand
         {
-
             get
             {
                 return connectCommand ??
-                  (connectCommand = new RelayCommand(obj =>
+                  (connectCommand = new RelayCommand(async obj =>
                   {
                       if (SelectedServer != null)
                       {
-                          SelectedServer.Connect();
-                          DirList = SelectedServer.Directories;
+                          await SelectedServer.Connect();
+                          DirList = SelectedServer.Folders;
                       }      
                   }));
             }
@@ -62,8 +80,8 @@ namespace RServerViewer
 
             Servers = new ObservableCollection<Server>
             {
-                new Server {Name="Rev2019", Version="2019", Path ="/RevitServerAdminRESTService2019/AdminRESTService.svc" },
-                new Server {Name="Rev2022", Version="2022", Path ="/RevitServerAdminRESTService2022/AdminRESTService.svc" },
+                new Server {Name="192.168.120.66", Version="2019"},
+                new Server {Name="Rev2022", Version="2022"},
             };
 
         }

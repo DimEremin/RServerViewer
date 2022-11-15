@@ -26,5 +26,11 @@ namespace RServerViewer
 
             DataContext = new ApplicationViewModel();
         }
+
+        private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem tvItem = (TreeViewItem)sender;
+            MessageBox.Show("Выбран узел: ");
+        }
     }
 }

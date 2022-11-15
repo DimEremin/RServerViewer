@@ -29,12 +29,12 @@
 
         <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch">
             <TextBlock Text="Версия Revit"  />
-            <ComboBox  ItemsSource="{Binding Servers}" 
+            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Servers}" 
                   SelectedItem="{Binding SelectedServer}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="5">
-                            <TextBlock Text="{Binding Path=Version}" />
+                        <StackPanel >
+                            <TextBlock  Text="{Binding Path=Version}" />
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -50,25 +50,24 @@
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <TreeView Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" ItemsSource="{Binding DirList}">
+        <TreeView Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" ItemsSource="{Binding DirList}"  >
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Directories}">
-                    <Label Content="{Binding DirectoryName}"/>
-                    <HierarchicalDataTemplate.ItemTemplate>
-                        <HierarchicalDataTemplate ItemsSource="{Binding Models}">
-                            <Label Content="{Binding DirectoryName}"/>
-                            <HierarchicalDataTemplate.ItemTemplate>
-                                <DataTemplate>
-                                    <Label Content="{Binding ModelName}"/>
-                                </DataTemplate>
-                            </HierarchicalDataTemplate.ItemTemplate>
-                        </HierarchicalDataTemplate>
-                    </HierarchicalDataTemplate.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Folders}" >
+                    <TreeViewItem Selected="TreeViewItem_Selected" >
+                        <TreeViewItem.Header >
+                            <DockPanel>
+                                <CheckBox/>
+                                <TextBlock Text="{Binding Name}"  />
+                            </DockPanel>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <ListBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch">
+        <ListBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" >
+            
         </ListBox>
 
     </Grid>
