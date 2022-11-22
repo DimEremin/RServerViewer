@@ -79,13 +79,13 @@ namespace RServerViewer
         {
             folders = new List<Folder>();
 
-            httpClient = new HttpClient();
+            httpClient = AppHttpClient.getInstance();
             //string request = "http://192.168.120.66/RevitServerAdminRESTService2019/AdminRESTService.svc/|";
             string stringRequest = "http://" + Name + supportedVersions[version] + "/|";
 
-            httpClient.DefaultRequestHeaders.Add("User-Name", Environment.UserName);
-            httpClient.DefaultRequestHeaders.Add("User-Machine-Name", Environment.MachineName);
-            httpClient.DefaultRequestHeaders.Add("Operation-GUID", Guid.NewGuid().ToString());
+            //httpClient.DefaultRequestHeaders.Add("User-Name", Environment.UserName);
+            //httpClient.DefaultRequestHeaders.Add("User-Machine-Name", Environment.MachineName);
+            //httpClient.DefaultRequestHeaders.Add("Operation-GUID", Guid.NewGuid().ToString());
 
              folders.Add((await GetAndDeserializeFolder(stringRequest)));
             folders[0].Name = "Server";
@@ -112,7 +112,7 @@ namespace RServerViewer
                 folder.Folders.Clear();
                 folder.Folders.AddRange(tempFolders);
             }
-
+            folder.Path = path;
             return folder;
         }
 

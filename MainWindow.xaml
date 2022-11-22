@@ -49,11 +49,23 @@
             <TextBlock Text="Имя сервера или IP"  />
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
+        
 
-        <TreeView Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" ItemsSource="{Binding DirList}"  >
+        <TreeView Grid.Column="0" 
+                  Grid.Row="2" 
+                  HorizontalAlignment="Stretch" 
+                  Margin="10" 
+                  VerticalAlignment="Stretch" 
+                  ItemsSource="{Binding DirList}" 
+                  xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                  SelectedItemChanged="TreeView_SelectedItemChanged">
+            <i:Interaction.Behaviors>
+                <local:BindableSelectedItemBehavior 
+                    SelectedItem="{Binding SelectedFolder}" />
+            </i:Interaction.Behaviors>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Folders}" >
-                    <TreeViewItem Selected="TreeViewItem_Selected" >
+                    <TreeViewItem  >
                         <TreeViewItem.Header >
                             <DockPanel>
                                 <CheckBox/>
@@ -66,9 +78,33 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <ListBox Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" >
-            
-        </ListBox>
+        <StackPanel 
+            Height="200" 
+            Grid.ColumnSpan="2" 
+            Grid.Column="1" 
+            Grid.Row="2" 
+            HorizontalAlignment="Stretch" 
+            Margin="10" 
+            VerticalAlignment="Top" 
+            DataContext="{Binding SelectedFolder}"
+            >
+            <ListBox 
+                Height="200" 
+                ItemsSource="{Binding Models}" 
+                SelectedItem="{Binding SelectedModelRVT}"
+                SelectionChanged ="ListBox_SelectionChanged"
+                >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel >
+                            <TextBlock  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"  />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+
 
     </Grid>
 </Window>

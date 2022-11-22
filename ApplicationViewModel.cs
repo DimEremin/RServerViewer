@@ -35,6 +35,8 @@ namespace RServerViewer
             get { return selectedFolder; }
             set
             {
+
+                MessageBox.Show("Fol");
                 selectedFolder = value;
                 OnPropertyChanged("SelectedFolder");
             }
@@ -45,6 +47,9 @@ namespace RServerViewer
             set
             {
                 selectedModelRVT = value;
+
+                MessageBox.Show("Model");
+
                 OnPropertyChanged("SelectedModelRVT");
             }
         }
@@ -75,6 +80,26 @@ namespace RServerViewer
             }
         }
 
+
+
+        private RelayCommand getHistoryCommand;
+        public RelayCommand GetHistoryCommand
+        {
+            get
+            {
+                return getHistoryCommand ??
+                  (getHistoryCommand = new RelayCommand(async obj =>
+                  {
+                      if (SelectedModelRVT != null)
+                      {
+                          MessageBox.Show("d");
+                         // await SelectedModelRVT.GetHistory();
+
+                      }
+                  }));
+            }
+        }
+
         public ApplicationViewModel()
         {
 
@@ -84,6 +109,12 @@ namespace RServerViewer
                 new Server {Name="Rev2022", Version="2022"},
             };
 
+        }
+
+        public void Test ()
+        {
+            var s = SelectedModelRVT;
+            MessageBox.Show("D");
         }
 
     }
