@@ -44,6 +44,7 @@ namespace RServerViewer
                 EnsureSuccessStatusCode().Content.
                 ReadAsAsync<Root>();
             HistoryItems = History.Items;
+
         }
 
 
